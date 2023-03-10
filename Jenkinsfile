@@ -5,12 +5,15 @@ pipeline {
     }
     tools {
         maven 'M3'
+        jdk 'JAVA_HOME'
     } 
     stages{
         
         stage('Create Release Branch') {
             steps {
                 echo "Starting Create Release Branch..."
+                sh "java -version"
+                sh "git version"
                 sh "git checkout -b '${env.BUILD_VERSION}'"
                 sh "mvn versions:set -DnewVersion='${env.BUILD_VERSION}'"
                 echo "Create Release Branch: ${currentBuild.currentResult}"
